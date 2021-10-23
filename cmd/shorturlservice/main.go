@@ -22,6 +22,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	if err := shorturlserver.Start(config); err != nil {
+		log.Fatal(err)
+	}
 }
 
 
