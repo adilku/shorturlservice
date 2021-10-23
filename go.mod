@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/BurntSushi/toml v0.4.1
 	github.com/gorilla/mux v1.8.0
+	github.com/lib/pq v1.10.3
 	github.com/matoous/go-nanoid v1.5.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.2.2
