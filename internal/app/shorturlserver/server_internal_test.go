@@ -44,6 +44,38 @@ func TestServer_handleCreateShortLink(t *testing.T) {
 }
 
 func TestServer_handleFind(t *testing.T) {
+	s := newServer(simplestore.New())
+	testCases := []struct {
+		name 			string
+		payload			interface{}
+		expectedCode	int
+	} {
+		{
+			name: "invalid",
+			payload: map[string]string{
+				"url": model.TestURL(t),
+			},
+			expectedCode: http.StatusBadRequest,
+		},
+		{
+			name: "invalid payload",
+			payload: "",
+			expectedCode: http.StatusBadRequest,
+		},
+	}
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T){
+			rec := httptest.NewRecorder()
+			b := &bytes.Buffer{}
+			json.NewEncoder(b).Encode(tc.payload)
+			req, _ := http.NewRequest(http.MethodGet, "/sendUrl", b)
+			s.ServeHTTP(rec, req)
+			assert.Equal(t, tc.expectedCode, rec.Code)
+		})
+	}
+}
+
+func TestServer_handleFindGood(t *testing.T) {
 	type responseShort struct {
 		ShortUrl string `json:"shortUrl"`
 	}
