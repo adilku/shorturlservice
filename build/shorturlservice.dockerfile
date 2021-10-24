@@ -3,7 +3,7 @@ FROM golang:1.16-alpine
 WORKDIR /shorturlservice/
 
 
-COPY . ./
+COPY ./../.. ./
 
 RUN ls -la ./*
 
