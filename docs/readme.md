@@ -1,6 +1,6 @@
-# Запуск приложения
+## Запуск приложения
 
-##Конфигурация
+### Конфигурация
 Хранится в директории configs/
 * database_url - параметры для запуска бд
 * bind_addr - параметры для запуска сервера
@@ -10,7 +10,7 @@
   по дефолту стоит ../configs/shorturlservice.toml
 * -db-option - выбор бд ( -db-option=postgres, -db-option=inmemory) по дефолту стоит postgres 
 
-##Запуск с докера
+### Запуск с докера
 Для запуска приложения с использованием docker-compose: build/docker-compose.yml
 ```shell
 # нужно находится в папке build
@@ -19,8 +19,8 @@ sudo docker-compose up -d
 #по дефолту запуститься с postgres базой данных, изменить это можно в build/build.sh
 ```
 
-##Запуск и тестирование локально
-##Make
+### Запуск и тестирование локально
+### Make
 ```shell
 # нужно находится в папке build
 cd build/
@@ -30,7 +30,7 @@ make test
 #запуск unit-тестов
 ```
 
-##Go build
+### Go build
 ```shell
 # нужно находится в папке build
 cd build/
@@ -41,7 +41,7 @@ go build -v ./../cmd/shorturlservice
 go test -v  -race -timeout 30s ./../...
 ```
 
-#Структура проекта
+## Структура проекта
 
 * /build/ - содержит инструменты для запуска тестов и окружения
 * /cmd/ - приложение http-сервер обеспечивающий прием и обработку REST API запросов
@@ -50,13 +50,13 @@ go test -v  -race -timeout 30s ./../...
 * /configs/ - файлы конфигурации для запуска сервиса.(host, url базы данных)
 * /migrations/ - миграции базы данных
 
-## /
+### /
 * build.sh - скрипт для запуска сервиса в докере
 * database.env - файл конфигурации бд в докере
 * docker-compose.yml - запуск микросервиса (вместе с субд)
 * Makefile - make файл для локального запуска
 
-#Тестирование
+# Тестирование
 ```shell
 ➜  build git:(main) ✗ docker-compose up -d   
 ➜  build git:(main) ✗ http POST http://localhost:8080/urls url=yandex.ru
