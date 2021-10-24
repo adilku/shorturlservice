@@ -36,7 +36,7 @@ func TestServer_handleCreateShortLink(t *testing.T) {
 			rec := httptest.NewRecorder()
 			b := &bytes.Buffer{}
 			json.NewEncoder(b).Encode(tc.payload)
-			req, _ := http.NewRequest(http.MethodPost, "/sendUrl", b)
+			req, _ := http.NewRequest(http.MethodPost, "/urls", b)
 			s.ServeHTTP(rec, req)
 			assert.Equal(t, tc.expectedCode, rec.Code)
 		})
@@ -68,7 +68,7 @@ func TestServer_handleFind(t *testing.T) {
 			rec := httptest.NewRecorder()
 			b := &bytes.Buffer{}
 			json.NewEncoder(b).Encode(tc.payload)
-			req, _ := http.NewRequest(http.MethodGet, "/sendUrl", b)
+			req, _ := http.NewRequest(http.MethodGet, "/urls", b)
 			s.ServeHTTP(rec, req)
 			assert.Equal(t, tc.expectedCode, rec.Code)
 		})
@@ -88,7 +88,7 @@ func TestServer_handleFindGood(t *testing.T) {
 	b := &bytes.Buffer{}
 	testCase := map[string]string{"url": model.TestURL(t)}
 	json.NewEncoder(b).Encode(testCase)
-	req, _ := http.NewRequest(http.MethodPost, "/sendUrl", b)
+	req, _ := http.NewRequest(http.MethodPost, "/urls", b)
 	s.ServeHTTP(rec, req)
 	assert.Equal(t, http.StatusCreated, rec.Code)
 	res := rec.Result()
@@ -100,7 +100,7 @@ func TestServer_handleFindGood(t *testing.T) {
 	b2 := &bytes.Buffer{}
 	testCase2 := map[string]string{"url": expected}
 	json.NewEncoder(b2).Encode(testCase2)
-	req, _ = http.NewRequest(http.MethodGet, "/sendUrl", b2)
+	req, _ = http.NewRequest(http.MethodGet, "/urls", b2)
 	s.ServeHTTP(rec2, req)
 	assert.Equal(t, http.StatusOK, rec2.Code)
 

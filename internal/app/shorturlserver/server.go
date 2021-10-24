@@ -30,7 +30,7 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) configureRouter() {
-	s.router.HandleFunc("/sendUrl", s.handleCreateShortLink()).Methods("POST", "GET")
+	s.router.HandleFunc("/urls", s.handleCreateShortLink()).Methods("POST", "GET")
 }
 
 func (s *server) handleCreateShortLink() http.HandlerFunc {

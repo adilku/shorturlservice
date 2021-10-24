@@ -9,6 +9,9 @@ type UrlRepository struct {
 }
 
 func (r UrlRepository) Create(url *model.Url) error {
+	if err := url.Validate(); err != nil {
+		return err
+	}
 	err := r.store.db.QueryRow(
 		"INSERT INTO urls (short_url, long_url) VALUES ($1, $2)",
 		url.ShortAddress,
