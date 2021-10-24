@@ -9,10 +9,12 @@ import (
 
 var (
 	configPath string
+	databaseOption string
 )
 
 func init() {
 	flag.StringVar(&configPath, "config-path", "../configs/shorturlservice.toml", "path to config file")
+	flag.StringVar(&databaseOption, "db-option", "postgres", "database option")
 }
 
 func main() {
@@ -22,7 +24,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if err := shorturlserver.Start(config); err != nil {
+	if err := shorturlserver.Start(config, databaseOption); err != nil {
 		log.Fatal(err)
 	}
 }
