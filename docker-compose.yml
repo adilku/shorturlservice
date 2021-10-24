@@ -8,14 +8,14 @@ services:
     ports:
       - 5432
     volumes:
-      - ./../migrations/20211024021847_create_shorturl_service.up.sql:/docker-entrypoint-initdb.d/20211024021847_create_shorturl_service.up.sql
+      - ./migrations/20211024021847_create_shorturl_service.up.sql:/docker-entrypoint-initdb.d/20211024021847_create_shorturl_service.up.sql
 
 
 
   server:
     image: shorturlservice
     build:
-      context: ..
+      context: ./
       dockerfile: shorturlservice.dockerfile
     ports:
       - 8080:8080

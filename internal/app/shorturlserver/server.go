@@ -70,7 +70,7 @@ func (s *server) handleCreateShortLink() http.HandlerFunc {
 				s.error(w, r, http.StatusBadRequest, err)
 				return
 			}
-			responseLong := map[string]string{"LongUrl" : originalUrl}
+			responseLong := map[string]string{"longUrl" : originalUrl}
 			s.respond(w, r, http.StatusOK, responseLong)
 		}
 	}
