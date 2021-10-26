@@ -60,12 +60,14 @@ func (s *server) handleCreateShortLink() http.HandlerFunc {
 			responseShort := map[string]string{"shortUrl" : shortUrl}
 			s.respond(w, r, http.StatusCreated, responseShort)
 		case "GET":
-			req := &request{}
+			//req := &request{}
+			shortUrl := r.URL.Query().Get("short_url")
+			/*
 			if err := json.NewDecoder(r.Body).Decode(req); err != nil {
 				s.error(w, r, http.StatusBadRequest, err)
 				return
-			}
-			originalUrl, err := s.store.GetUrls().FindByShort(req.Url)
+			}*/
+			originalUrl, err := s.store.GetUrls().FindByShort(shortUrl)
 			if err != nil {
 				s.error(w, r, http.StatusBadRequest, err)
 				return
