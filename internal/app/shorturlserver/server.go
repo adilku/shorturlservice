@@ -47,7 +47,6 @@ func (s *server) handleCreateShortLink() http.HandlerFunc {
 				s.error(w, r, http.StatusBadRequest, err)
 				return
 			}
-			//TODO validation
 			shortUrl, err := model.GenerateNewUrl()
 			if err != nil {
 				s.error(w, r, http.StatusInternalServerError, err)
@@ -60,16 +59,10 @@ func (s *server) handleCreateShortLink() http.HandlerFunc {
 			responseShort := map[string]string{"shortUrl" : shortUrl}
 			s.respond(w, r, http.StatusCreated, responseShort)
 		case "GET":
-			//req := &request{}
-			shortUrl := r.URL.Query().Get("short_url")
-			/*
-			if err := json.NewDecoder(r.Body).Decode(req); err != nil {
-				s.error(w, r, http.StatusBadRequest, err)
-				return
-			}*/
+			shortUrl := r.URL.Query().Get("shortUrl")
 			originalUrl, err := s.store.GetUrls().FindByShort(shortUrl)
 			if err != nil {
-				s.error(w, r, http.StatusBadRequest, err)
+				s.error(w, r, http.StatusNoContent, err)
 				return
 			}
 			responseLong := map[string]string{"longUrl" : originalUrl}

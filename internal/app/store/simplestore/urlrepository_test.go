@@ -17,6 +17,7 @@ func TestUrlRepository_Create(t *testing.T) {
 	assert.NoError(t, err)
 }
 
+/*
 func TestUrlRepository_CreateExist(t *testing.T) {
 	s := simplestore.New()
 	longUrl := model.TestURL(t)
@@ -27,7 +28,7 @@ func TestUrlRepository_CreateExist(t *testing.T) {
 	assert.NoError(t, err)
 	err = s.GetUrls().Create(&m)
 	assert.Error(t, err)
-}
+}*/
 
 func TestUrlRepository_FindByShort(t *testing.T) {
 	s := simplestore.New()

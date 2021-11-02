@@ -55,12 +55,7 @@ func TestServer_handleFind(t *testing.T) {
 			payload: map[string]string{
 				"url": model.TestURL(t),
 			},
-			expectedCode: http.StatusBadRequest,
-		},
-		{
-			name: "invalid payload",
-			payload: "",
-			expectedCode: http.StatusBadRequest,
+			expectedCode: http.StatusNoContent,
 		},
 	}
 	for _, tc := range testCases {
@@ -98,9 +93,12 @@ func TestServer_handleFindGood(t *testing.T) {
 
 	rec2 := httptest.NewRecorder()
 	b2 := &bytes.Buffer{}
-	testCase2 := map[string]string{"url": expected}
-	json.NewEncoder(b2).Encode(testCase2)
+	//testCase2 := map[string]string{"url": expected}
+	//json.NewEncoder(b2).Encode(testCase2)
 	req, _ = http.NewRequest(http.MethodGet, "/urls", b2)
+	q := req.URL.Query()
+	q.Add("shortUrl", expected)
+	req.URL.RawQuery = q.Encode()
 	s.ServeHTTP(rec2, req)
 	assert.Equal(t, http.StatusOK, rec2.Code)
 
